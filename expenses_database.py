@@ -38,3 +38,19 @@ def get_expenses():
     rows = c.fetchall()
     conn.close()
     return rows
+
+def get_total():
+    conn = sqlite3.connect(db_name)
+    c = conn.cursor()
+    c.execute("SELECT SUM(amount) FROM expenses")
+    total = c.fetchone()[0]
+    conn.close()
+    return total if total else 0.0
+
+def get_by_type():
+    conn = sqlite3.connect(db_name)
+    c = conn.cursor()
+    c.execute("SELECT type, SUM(amount) FROM expenses GROUP BY type")
+    result = c.fetchall()
+    conn.close
+    return result

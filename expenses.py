@@ -1,4 +1,4 @@
-from expenses_database import init_db, add_expense, get_expenses
+from expenses_database import init_db, add_expense, get_expenses, get_total, get_by_type
 from datetime import date
 
 init_db()
@@ -10,6 +10,25 @@ def get_amount():
             return float(amount_str)
         except ValueError:
             print("Amount must be a number!")
+
+def get_report():
+    while True:
+        print("\n ---REPORTS---")
+        print("1. TOTAL EXPENSES REPORT")
+        print("2. EXPENSES BY TYPE REPORT")
+        print("3. MAIN MENU")
+
+        choice = input("CHOOSE AN OPTION: ")
+
+        if choice == "1":
+            total = get_total()
+            print(f"Total spent: {total:.2f} BAM")
+        elif choice == "2":
+            report_by_type = get_by_type()
+            for i, amount in report_by_type:
+                print(f"{i}: {amount: .2f} BAM")
+        else:
+            break
 
 def menu():
     while True:
@@ -33,7 +52,7 @@ def menu():
             for e in expenses:
                 print(expenses)
         elif choice == "3":
-            print("REPORTS FEATURE COMING SOON...")
+            get_report()
         elif choice == "4":
             break
         else:
